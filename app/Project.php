@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
 
+    protected $fillable = ['title', 'text', 'img', 'need_sum','current_sum', 'finish'];
+
     protected $dates = ['finished_at'];
 
     public function comments()
