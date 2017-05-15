@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <main>
 
     @include('project.welcome')
@@ -19,29 +20,35 @@
                         <h3 class="ttu">{{ $project->title }}</h3>
 
                         <p class="p__mod">{{ $project->lead }}</p>
-                        <a href="{{ url('project', $project->id) }}" class="btn-link">Learn more</a>
+
+                        <div class="preview_sum">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Собрано:</h6>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <h5><span>{{$project->collected}}</span> грн</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Необходимо:</h6>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <h5><span>{{$project->goal}}</span> грн</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="defaultprog" id="progressBar"><div></div></div>
+                        <script>
+                            var count = <?php echo ($project->collected*100)/$project->goal;?>
+
+                        progressBar(count, $('#progressBar'));
+                        </script>
+
+                        <a href="{{ url('project', $project->id) }}" class="btn-link">Принять участие</a>
                     </div>
-                    <div id="perccont"></div>
-
-                    <script>
-                        var aab = <?php echo ($project->collected*100)/$project->goal; ?>;
-                        aac = "Собрано "+ <?php echo $project->collected;?> + " грн";
-                        $('#perccont').doughnutChart({
-                            positiveColor: 'rgb(175, 207, 236)',
-                            negativeColor:  '#d97b1c',
-                            backgroundColor: "white",
-                            percentage : Math.round(aab),
-                            size: 100,
-                            doughnutSize: 0.35,
-                            innerText: aab + "%",
-                            innerTextOffset: 12,
-                            Title: "Наша цель: "+ <?php echo $project->goal;?> +  " грн",
-                            positiveText: aac,
-                            negativeText : "Осталось "+ <?php echo $project->goal - $project->collected;?> + " грн"
-                        });
-
-                        $('#perccont text').css('color','white');
-                    </script>
 
                 </div>
 

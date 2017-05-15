@@ -32,8 +32,7 @@
     <!--JS-->
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
-
-    <script src="{{ asset('js/jquery.svgDoughnutChart.js') }}"></script>
+    <script src="{{ asset('js/progressbar.js') }}"></script>
 
 
 
@@ -61,7 +60,7 @@
     <!--========================================================
                               HEADER
     =========================================================-->
-    <header class="clearfix">
+    <header class="clearfix @if (Request::route()->uri() != '/') bg_header @endif">
         <div id="stuck_container" class="stuck_container">
             <nav class="navbar">
                 <div class="navbar-brand">
@@ -160,6 +159,7 @@
             </ul>--}}
         </div>
 
+        @if (Request::route()->uri() == '/')
         <section>
             <div class="container">
                 <div class="position-abs">
@@ -191,6 +191,6 @@
                 <div data-src="{{ url('images/slide2.jpg') }}"></div>
             </div>
         </div>
-
+        @endif
 
     </header>
