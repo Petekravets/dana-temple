@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="view_content">
     <div class="container">
         <div class="row header_content">
@@ -20,7 +19,12 @@
                 <div class="countTo"></div>
             </div>
         </div>
+
+                <div id='liqpay_checkout'></div>
+
         <div class="row center_content">
+
+
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -30,17 +34,18 @@
             </div>
             <div class="col-md-6">
                 <h3>Мой вклад в проект ( грн. ):</h3>
-                <form action="" method="post">
+                {!! Form::open(['url' => 'payment', 'class' => 'donate-form']) !!}
                     <div class="form-group">
                         <div class="form-group">
 
-                            {!! Form::text('', null, ['value' => '1080']) !!}
+                            {!! Form::text('sum', null, ['class' => 'form-control', 'value' => '1080']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::submit('Принять участие', ['class' => 'btn btn-primary form-control']) !!}
                         </div>
                     </div>
-                </form>
+                {!! Form::close() !!}
+
                 <div class="socialite"></div>
             </div>
         </div>

@@ -20,7 +20,8 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database",
+            "./LiqPay.php"
         ],
         "psr-4": {
             "App\\": "app/"

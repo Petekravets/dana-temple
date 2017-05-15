@@ -33,6 +33,8 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
     <script src="{{ asset('js/progressbar.js') }}"></script>
+    {{--<script src="//static.liqpay.com/libjs/checkout.js"></script>--}}
+    <script src="{{ asset('js/common.js') }}"></script>
 
 
 

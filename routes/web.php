@@ -14,8 +14,7 @@
 Route::get('/', 'ProjectController@index');
 
 Route::resource('project', 'ProjectController');
-
-
-Auth::routes();
+//Route::get('payment', 'PaymentController@pay');
+Route::post('payment', 'PaymentController@pay');
 
 Route::get('/home', 'HomeController@index')->name('home');
