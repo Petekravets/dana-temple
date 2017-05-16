@@ -20,10 +20,7 @@
             </div>
         </div>
 
-                <div id='liqpay_checkout'></div>
-
         <div class="row center_content">
-
 
             <div class="col-md-6">
                 <div class="panel panel-default">
@@ -34,21 +31,51 @@
             </div>
             <div class="col-md-6">
                 <h3>Мой вклад в проект ( грн. ):</h3>
-                {!! Form::open(['url' => 'payment', 'class' => 'donate-form']) !!}
+                <form id="fake-form">
                     <div class="form-group">
-                        <div class="form-group">
 
-                            {!! Form::text('sum', null, ['class' => 'form-control', 'value' => '1080']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::submit('Принять участие', ['class' => 'btn btn-primary form-control']) !!}
-                        </div>
+                        {!! Form::text('sum', '1080', ['class' => 'form-control']) !!}
                     </div>
-                {!! Form::close() !!}
+                    <div class="form-group">
+                        <button class='btn btn-primary' name="donateBut">Принять участие</button>
+                    </div>
+                </form>
 
                 <div class="socialite"></div>
             </div>
         </div>
+
+
+        <div id='liqpay_checkout'></div>
+        <div class="row center_form">
+            {!! Form::open(['url' => 'payment', 'id' => 'donate-form', 'class' => 'form-horizontal']) !!}
+            <input type="hidden" name="sum">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" name="name" placeholder="Ваше имя" class="form-control">
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" name="female" placeholder="Фамилия" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Пожертвовать анонимно
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" class="btn btn-primary form-control" value="Перейти к оплате">
+                </div>
+            </div>
+            {!! Form::close() !!}
+        </div>
+
+
         <div class="row">
             <div class="separator"></div>
         </div>

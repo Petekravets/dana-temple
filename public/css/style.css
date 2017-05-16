@@ -1384,3 +1384,12 @@ footer h4 + p {
 #liqpay_checkout {
     display: none;
 }
+
+.margin-form {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+#donate-form {
+    display: none;
+}
