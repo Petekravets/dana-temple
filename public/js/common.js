@@ -27,7 +27,16 @@ $( document ).ready(function() {
 
     $('#fake-form button[name="donateBut"]').click(function(e) {
         e.preventDefault();
-        var sum = $(this).parents('#fake-form').find('input[name="sum"]').val();
+        var th = $(this);
+        var sum = th.parents('#fake-form').find('input[name="sum"]').val();
+        sum = Math.floor(sum);
+
+        if( (sum == '') || ($.isNumeric(sum) === false)) {
+            th.parents('#fake-form').find('label.control-label').remove();
+            th.parents('#fake-form').find('input[name="sum"]').before('<label class="control-label" for="inputWarning2">Введите корректную сумму</label>');
+            $i = 1;
+            return false;
+        }
         $('#donate-form').find('input[name="sum"]').val( sum );
         $('.center_content').hide();
         $('#donate-form').fadeIn(1000);
@@ -46,13 +55,17 @@ $( document ).ready(function() {
 
            },
            success: function(msg) {
-
+                console.log(msg);
                $('.center_form').fadeOut(500, function() {
                    $('#liqpay_checkout').addClass('margin-form').fadeIn(500);
                });
 
                addPayForm(msg.data, msg.signature);
                addScript('//static.liqpay.com/libjs/checkout.js');
+           },
+           error: function (jqXhr, textStatus, errorThrown) {
+               $('.center_content').fadeIn();
+               return false;
            }
        });
    });
