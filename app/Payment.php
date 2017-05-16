@@ -3,28 +3,29 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class Payment extends Model
 {
     protected $public_key;
     protected $private_key;
     protected $params = [];
+    protected $fillable = ['sum'];
 
-    public function __construct()
+    public function __construct($attributes)
     {
-        parent::__construct();
+        parent::__construct($attributes);
+
         $this->params = array(
-            'action'         => 'pay',
-            'version'        => '3',
-            'sandbox'        => '1',
-            'amount'         => \request()->input('sum'),
-            'currency'       => 'UAH',
-            'description'    => 'Пожертвование на пол',
+        'action'         => 'pay',
+        'version'        => '3',
+        'sandbox'        => '1',
+        'amount'         => $this->sum,
+        'currency'       => 'UAH',
+        'description'    => 'Пожертвование'
         );
 
-        $this->public_key = 'i11010743535';
-        $this->private_key = 'yh62IfJgulyMIGBT3fFwHirwIt7SgfhS6JyVPnQS';
+        $this->public_key = config('payment.public_key');
+        $this->private_key = config('payment.private_key');
     }
 
     public function getData()
