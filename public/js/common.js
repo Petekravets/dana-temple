@@ -1,6 +1,12 @@
 $( document ).ready(function() {
 
-    function addPayForm(data1, signature) {
+
+    function addCustomerToDb(args) {
+        console.log(args);
+
+    }
+
+    function addPayMethod(data1, signature, args) {
         window.LiqPayCheckoutCallback = function() {
             LiqPayCheckout.init({
                 data: data1,
@@ -10,6 +16,23 @@ $( document ).ready(function() {
             }).on("liqpay.callback", function(data){
                 console.log(data.status);
                 console.log(data);
+                args.donate = data.amount;
+                $.ajax({
+                    type: "POST",
+                    url: location.origin + "/donation",
+                    data: args,
+                    success: function(msg) {
+                        console.log('suc' + msg.suc + msg.idd);
+                    },
+                    error: function(jqXhr, textStatus, errorThrown) {
+                        console.log('error');
+                        console.log(jqXhr);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    }
+                });
+
+
             }).on("liqpay.ready", function(data){
                 // ready
             }).on("liqpay.close", function(data){
@@ -17,6 +40,7 @@ $( document ).ready(function() {
             });
         };
     }
+
 
     function addScript(src){
         var script = document.createElement('script');
@@ -28,19 +52,19 @@ $( document ).ready(function() {
     $('#fake-form button[name="donateBut"]').click(function(e) {
         e.preventDefault();
         var th = $(this);
-        var sum = th.parents('#fake-form').find('input[name="sum"]').val();
-        sum = Math.floor(sum);
+        var donate = th.parents('#fake-form').find('input[name="donate"]').val();
+        donate = Math.floor(donate);
 
-        if( (sum == '') || ($.isNumeric(sum) === false)) {
+        if( (donate == '') || ($.isNumeric(donate) === false)) {
             th.parents('#fake-form').find('label.control-label').remove();
-            th.parents('#fake-form').find('input[name="sum"]').before('<label class="control-label" for="inputWarning2">Введите корректную сумму</label>');
+            th.parents('#fake-form').find('input[name="donate"]').before('<label class="control-label" for="inputWarning2">Введите корректную сумму</label>');
             $i = 1;
             return false;
         }
-        $('#donate-form').find('input[name="sum"]').val( sum );
+        $('#donate-form').find('input[name="donate"]').val( donate );
         $('.center_content').hide();
         $('#donate-form').fadeIn(1000);
-        //$('.center_content').html('<form id="donate-form" class="form-inline" method="post"><input type="hidden" name="sum" value="'+sum+'"><div class="form-group"><input type="text" name="name" placeholder="Ваше имя" class="form-control"></div><div class="form-group"><input type="text" name="female" placeholder="Фамилия" class="form-control"></div><div class="form-group"><input type="submit" class="btn btn-primary form-control" value="Перейти к оплате"></div></form>').hide().fadeIn(1000);
+        //$('.center_content').html('<form id="donate-form" class="form-inline" method="post"><input type="hidden" name="donate" value="'+donate+'"><div class="form-group"><input type="text" name="name" placeholder="Ваше имя" class="form-control"></div><div class="form-group"><input type="text" name="female" placeholder="Фамилия" class="form-control"></div><div class="form-group"><input type="submit" class="btn btn-primary form-control" value="Перейти к оплате"></div></form>').hide().fadeIn(1000);
     });
 
    $('#donate-form').submit(function(e) {
@@ -48,11 +72,10 @@ $( document ).ready(function() {
        var th = $(this);
        $.ajax({
            type: "POST",
-           url: "http://dana-temple.loc/payment", //Change
+           url: location.origin + "/payment", //Change
            data: th.serialize(),
            beforeSend: function(xhr) {
                $('.center_form').addClass('margin-form').html('<div class="text-center"><img src="http://dana-temple.loc/images/ajax_loader.gif"></div>');
-
            },
            success: function(msg) {
                 console.log(msg);
@@ -60,7 +83,7 @@ $( document ).ready(function() {
                    $('#liqpay_checkout').addClass('margin-form').fadeIn(500);
                });
 
-               addPayForm(msg.data, msg.signature);
+               addPayMethod(msg.data, msg.signature, th.serialize());
                addScript('//static.liqpay.com/libjs/checkout.js');
            },
            error: function (jqXhr, textStatus, errorThrown) {

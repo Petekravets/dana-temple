@@ -9,7 +9,7 @@ class Payment extends Model
     protected $public_key;
     protected $private_key;
     protected $params = [];
-    protected $fillable = ['sum'];
+    protected $fillable = ['donate'];
 
     public function __construct($attributes)
     {
@@ -18,8 +18,8 @@ class Payment extends Model
         $this->params = array(
         'action'         => 'pay',
         'version'        => '3',
-        'sandbox'        => '1',
-        'amount'         => $this->sum,
+        //'sandbox'        => '1',
+        'amount'         => $this->donate,
         'currency'       => 'UAH',
         'description'    => 'Пожертвование'
         );

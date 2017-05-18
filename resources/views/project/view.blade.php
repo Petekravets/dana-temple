@@ -34,7 +34,7 @@
                 <form id="fake-form">
                     <div class="form-group">
 
-                        {!! Form::text('sum', '1080', ['class' => 'form-control']) !!}
+                        {!! Form::text('donate', '1080', ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         <button class='btn btn-primary' name="donateBut">Принять участие</button>
@@ -49,27 +49,23 @@
         <div id='liqpay_checkout'></div>
         <div class="row center_form">
             {!! Form::open(['url' => 'payment', 'id' => 'donate-form', 'class' => 'form-horizontal']) !!}
-            <input type="hidden" name="sum">
+            <input type="hidden" name="donate">
             <div class="form-group">
                 <div class="col-sm-6">
                     <input type="text" name="name" placeholder="Ваше имя" class="form-control">
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" name="female" placeholder="Фамилия" class="form-control">
+                    <input type="submit" class="btn btn-primary form-control" value="Перейти к оплате">
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                <div class="col-md-6 col-sm-12">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> Пожертвовать анонимно
+                            <input type="hidden" name="id_p" value="{{ $id_p }}">
+                            <input type="checkbox" name="anonim" value="false"> Пожертвовать анонимно
                         </label>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input type="submit" class="btn btn-primary form-control" value="Перейти к оплате">
                 </div>
             </div>
             {!! Form::close() !!}

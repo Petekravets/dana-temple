@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaymentRequest;
 use App\Payment;
 use Illuminate\Http\Request;
 
@@ -11,18 +12,16 @@ class PaymentController extends Controller
     public function pay(Request $request)
     {
 
-        $payment = new Payment(['sum' => $request->input('sum')]);
+        $payment = new Payment(['donate' => $request->input('donate')]); //$request->all()
         $this->validate($request, [
-            'sum' => 'required|integer|not_in:0'
+            'donate' => 'required|integer|not_in:0',
+            //'name' => 'required:if,anonim,true'
+
         ]);
         $response = [
             'data' => $payment->getData(),
             'signature' => $payment->getSignature()
         ];
-
-        /*$response = [
-            'data' => $validate
-        ];*/
 
         return \Response::json($response);
     }

@@ -16,5 +16,6 @@ Route::get('/', 'ProjectController@index');
 Route::resource('project', 'ProjectController');
 //Route::get('payment', 'PaymentController@pay');
 Route::post('payment', 'PaymentController@pay');
+Route::post('donation', 'DonationController@store');
 
 Route::get('/home', 'HomeController@index')->name('home');

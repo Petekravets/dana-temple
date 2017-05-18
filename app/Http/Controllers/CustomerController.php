@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('project.index', ['projects' => Project::all()]);
+        //
     }
 
     /**
@@ -35,7 +34,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -46,8 +45,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $id = (int)$id;
-        return view('project.view', ['project' => Project::findOrFail($id),'id_p' => $id]);
+        //
     }
 
     /**

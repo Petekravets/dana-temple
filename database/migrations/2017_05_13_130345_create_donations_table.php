@@ -18,10 +18,14 @@ class CreateDonationsTable extends Migration
             $table->integer('project_id');
             $table->integer('user_id')->nullable();
             $table->string('name')->nullable();
-            $table->string('surname')->nullable();
-            $table->integer('donate');
+            $table->integer('sum');
             $table->timestamps();
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     /**
