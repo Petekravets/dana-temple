@@ -47,7 +47,8 @@ class ProjectController extends Controller
     public function show($id)
     {
         $id = (int)$id;
-        return view('project.view', ['project' => Project::findOrFail($id),'id_p' => $id]);
+        $id_hash = Project::getHashId($id);
+        return view('project.view', ['project' => Project::findOrFail($id), 'id_hash' => $id_hash]);
     }
 
     /**

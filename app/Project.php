@@ -17,6 +17,16 @@ class Project extends Model
         return $query->where('finished_at', '<=', Carbon::now());
     }
 
+    public static function getHashId($id)
+    {
+        return config('services.form_id.secret').$id.config('services.form_id.secret');
+    }
+
+    public static function getClearId($input)
+    {
+        return str_replace(config('services.form_id.secret'), '', $input);
+    }
+
     public function comments()
     {
         return $this->hasMany('App\Comment');

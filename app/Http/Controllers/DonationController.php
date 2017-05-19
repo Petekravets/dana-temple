@@ -13,14 +13,12 @@ class DonationController extends Controller
     public function store(Request $request)
     {
 
+        $request = Donation::anonimCheck($request);
 
-        $project = Project::find($request->input('id_p'));
-        $donation = new Donation($request->all());
-        $response = [
-            'suc' => $project,
-            'idd' => $donation
-        ];
-        $project->donations()->save($donation);
+        $id = Project::getClearId($request->input('id_p'));
+        $project = Project::find($id);
+
+        $project->donations()->save(new Donation($request->all()));
         return \Response::json(['suc' => 'success']);
     }
 }

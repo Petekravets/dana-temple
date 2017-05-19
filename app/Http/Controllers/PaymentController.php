@@ -15,8 +15,7 @@ class PaymentController extends Controller
         $payment = new Payment(['donate' => $request->input('donate')]); //$request->all()
         $this->validate($request, [
             'donate' => 'required|integer|not_in:0',
-            //'name' => 'required:if,anonim,true'
-
+            'id_p' => 'required'
         ]);
         $response = [
             'data' => $payment->getData(),

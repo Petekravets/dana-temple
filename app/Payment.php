@@ -18,7 +18,7 @@ class Payment extends Model
         $this->params = array(
         'action'         => 'pay',
         'version'        => '3',
-        //'sandbox'        => '1',
+        'sandbox'        => '1',
         'amount'         => $this->donate,
         'currency'       => 'UAH',
         'description'    => 'Пожертвование'

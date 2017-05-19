@@ -3,11 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Donation extends Model
 {
 
-    protected $fillable = ['name', 'donate', 'project_id'];
+    protected $fillable = ['name', 'donate'];
+
+    public static function anonimCheck($request)
+    {
+        if($request->has('anonim')) {
+            $request->merge(['name' => 'Доброжелатель']);
+        }
+        return $request;
+    }
 
     public function user()
     {

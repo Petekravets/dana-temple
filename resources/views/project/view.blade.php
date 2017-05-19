@@ -47,6 +47,7 @@
 
 
         <div id='liqpay_checkout'></div>
+
         <div class="row center_form">
             {!! Form::open(['url' => 'payment', 'id' => 'donate-form', 'class' => 'form-horizontal']) !!}
             <input type="hidden" name="donate">
@@ -62,7 +63,7 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="checkbox">
                         <label>
-                            <input type="hidden" name="id_p" value="{{ $id_p }}">
+                            <input type="hidden" name="id_p" value="{{ $id_hash }}">
                             <input type="checkbox" name="anonim" value="false"> Пожертвовать анонимно
                         </label>
                     </div>

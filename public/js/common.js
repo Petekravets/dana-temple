@@ -2,8 +2,20 @@ $( document ).ready(function() {
 
 
     function addCustomerToDb(args) {
-        console.log(args);
-
+        $.ajax({
+            type: "POST",
+            url: location.origin + "/donation",
+            data: args,
+            success: function(msg) {
+                console.log('suc' + msg.suc + msg.idd);
+            },
+            error: function(jqXhr, textStatus, errorThrown) {
+                console.log('error');
+                console.log(jqXhr);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
     }
 
     function addPayMethod(data1, signature, args) {
@@ -17,21 +29,7 @@ $( document ).ready(function() {
                 console.log(data.status);
                 console.log(data);
                 args.donate = data.amount;
-                $.ajax({
-                    type: "POST",
-                    url: location.origin + "/donation",
-                    data: args,
-                    success: function(msg) {
-                        console.log('suc' + msg.suc + msg.idd);
-                    },
-                    error: function(jqXhr, textStatus, errorThrown) {
-                        console.log('error');
-                        console.log(jqXhr);
-                        console.log(textStatus);
-                        console.log(errorThrown);
-                    }
-                });
-
+                addCustomerToDb(args);
 
             }).on("liqpay.ready", function(data){
                 // ready
@@ -70,6 +68,10 @@ $( document ).ready(function() {
    $('#donate-form').submit(function(e) {
        e.preventDefault();
        var th = $(this);
+       if(($('input[name="name"]').val() == '') && (!$('input[name="anonim"]').is(':checked')))  {
+           alert('Заполниле поля!');
+           return false;
+       }
        $.ajax({
            type: "POST",
            url: location.origin + "/payment", //Change

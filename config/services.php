@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'form_id' => [
+        'secret' => env('FORM_ID_SECRET')
+    ],
+
 ];
