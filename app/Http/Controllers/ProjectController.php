@@ -47,8 +47,14 @@ class ProjectController extends Controller
     public function show($id)
     {
         $id = (int)$id;
+        $project = Project::findOrFail($id);
+        $donations = $project->donations()->paginate(3);
         $id_hash = Project::getHashId($id);
-        return view('project.view', ['project' => Project::findOrFail($id), 'id_hash' => $id_hash]);
+        return view('project.view', [
+            'project' => $project,
+            'id_hash' => $id_hash,
+            'donations' => $donations
+        ]);
     }
 
     /**
