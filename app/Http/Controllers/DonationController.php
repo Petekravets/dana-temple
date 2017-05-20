@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Donation;
 use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class DonationController extends Controller
 {
+
+    public function getDonations()
+    {
+        $donations = Donation::where('project_id', '=', '1')->paginate(3);
+        return \Response::json(view('project.donations')->with('donations', $donations)->render());
+    }
 
 
     public function store(Request $request)

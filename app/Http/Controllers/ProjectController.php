@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Project;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
 
 class ProjectController extends Controller
 {
@@ -48,8 +49,11 @@ class ProjectController extends Controller
     {
         $id = (int)$id;
         $project = Project::findOrFail($id);
-        $donations = $project->donations()->paginate(3);
-        $id_hash = Project::getHashId($id);
+        $donations = $project->donations()->latest()->paginate(3);
+        $id_hash = Project::hashId($id);
+        if(Request::ajax()) {
+            return Response::json(view('project.donations')->with('donations', $donations)->render());
+        }
         return view('project.view', [
             'project' => $project,
             'id_hash' => $id_hash,

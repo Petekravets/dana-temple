@@ -17,7 +17,7 @@ class Project extends Model
         return $query->where('finished_at', '<=', Carbon::now());
     }
 
-    public static function getHashId($id)
+    public static function hashId($id)
     {
         return config('services.form_id.secret').$id.config('services.form_id.secret');
     }

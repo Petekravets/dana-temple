@@ -80,35 +80,11 @@
 
         @include('project.tabs')
 
-        <div class="contributions">
-            <table class="table">
-                <thead class="thead-inverse">
-                <tr>
-                    <th>#</th>
-                    <th>Участник</th>
-                    <th>Сумма</th>
-                    <th>Дата</th>
-                </tr>
-                </thead>
-                <tbody>
+        <div class="donations" id="donations">
 
-                @foreach($donations as $donation)
-                <tr>
-                    <th scope="row">1</th>
-                    <td>{{ $donation->name}}</td>
-                    <td>{{ $donation->donate}}</td>
-                    <td>{{ $donation->created_at}}</td>
-                </tr>
-                @endforeach
-                </tbody>
-            </table>
 
-            <nav class="pagination-nav" aria-label="Page navigation">
-                {{ $donations->links() }}
-            </nav>
-            <div class="separator"></div>
+            @include('project.donations')
         </div>
-
 
         <div id="product-reviews-wrap">
             <div class="container">

@@ -1,6 +1,25 @@
 $( document ).ready(function() {
 
 
+
+    $(document).on('click', '.pagination a', function(e) {
+        e.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        var url = $(this).attr('href').split('page=')[0];
+        $.ajax({
+            type: "GET",
+            url: '?page=' + page,
+            dataType: 'json',
+            success: function(data) {
+                $('#donations').html(data);
+            },
+            error: function () {
+                alert('Не получется загрузить данные');
+            }
+        })
+    });
+
+
     function addCustomerToDb(args) {
         $.ajax({
             type: "POST",

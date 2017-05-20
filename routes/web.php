@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'ProjectController@index');
+Route::get('donation', 'DonationController@getDonations');
 
 Route::resource('project', 'ProjectController');
 //Route::get('payment', 'PaymentController@pay');
